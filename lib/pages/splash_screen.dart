@@ -2,7 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:quizu/controllers/app_controller.dart';
 import 'package:quizu/pages/home_page.dart';
-import 'package:quizu/pages/login.dart';
+import 'package:quizu/pages/intro_screen.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -27,7 +27,7 @@ class _SplashState extends State<Splash> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const Login(),
+        builder: (context) => const IntroScreen(),
       ),
     );
   }

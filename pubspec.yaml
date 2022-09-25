@@ -47,6 +47,7 @@ dependencies:
   share_plus: ^4.4.0
   path_provider: ^2.0.11
   random_avatar: ^0.0.7
+  intro_slider: ^4.0.0
 
 dev_dependencies:
   flutter_test:
