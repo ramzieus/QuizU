@@ -1,16 +1,53 @@
-# quizu
+# QuizU
 
-A new Flutter project.
+## Packages Used
+- [phone_number](https://pub.dev/packages/phone_number)
+- [dio](https://pub.dev/packages/dio)
+- [sqflite](https://pub.dev/packages/sqflite)
+## Technical Requirements
+NOTE: Here is the API documentation
 
-## Getting Started
+### Token
+The app checks if the token is valid on app launch. If so, home screen is shown
+GET https://quizu.okoul.com/Token
+if token is invalid or non-existent, login screen is shown.
 
-This project is a starting point for a Flutter application.
+### Login
+When the user clicks “Start” there is no call to the server, the call is done after “Check” is clicked on next screen
+correct OTP is always 0000 but should still be checked at server using the call below
+POST https://quizu.okoul.com/Login
+Returns:
+1- Bearer token
+1- Status, either new or returning, if returning also returns Name, Mobile
+*Please use this library to validate the mobile number:
+https://pub.dev/packages/phone_number
+*Client-side validation should be done to check if mobile or OTP is empty and an error message is shown accordingly
 
-A few resources to get you started if this is your first Flutter project:
+### Name
+If the user is new, the name input screen is shown, when done is clicked the name is updated in the server
+POST https://quizu.okoul.com/Name
+Returns:
+1- Name
+2- Mobile
+*Client-side validation should be done to check if Name is empty and an error message is shown accordingly
+Leaderboard
+Top 10 scores (names and count of correct answers are retrieved from server) and displayed sorted descending by count of correct answers
+GET https://quizu.okoul.com/TopScores
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Profile
+Name and mobile are displayed
+previous scores for the logged-in users is shown from local storage, sorted by date descending
+If the logout button is clicked the token is deleted form local storage, no server call is made
+If at anytime, you would like to get the user’s info, please call GET https://quizu.okoul.com/UserInfo (make sure your token is valid)
+Returns:
+1-Name
+2-Mobile
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Quiz
+When the quiz is started, GET https://quizu.okoul.com/Questions is called returns 30 questions with their answers Returns:
+{question, option 1, option 2, option 3, options 4, correct option: X}
+Score
+When the quiz is completed correctly the score is saved to server
+POST https://quizu.okoul.com/Score
+Also save the score locally on local storage to be used in Profile tab
+
