@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:animate_do/animate_do.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +22,7 @@ class _QuizState extends State<Quiz> {
   int index = 0;
   int sum = 0;
   bool fault = false;
+  bool skipped = false;
 
   _getQuestions() async {
     setState(() {
@@ -55,15 +54,6 @@ class _QuizState extends State<Quiz> {
       setState(() {
         fault = true;
       });
-      controller.setScore(sum);
-      Timer(const Duration(seconds: 2), () {
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => Result(score: sum),
-          ),
-        );
-      });
     }
   }
 
@@ -83,14 +73,12 @@ class _QuizState extends State<Quiz> {
             return QAlert(
                 message: 'Do you want to Quit the game?',
                 onPressed: () {
-                  controller.logout().then((e) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyHomePage(),
-                      ),
-                    );
-                  });
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const MyHomePage(),
+                    ),
+                  );
                 });
           },
         );
@@ -103,13 +91,30 @@ class _QuizState extends State<Quiz> {
           actions: [
             IconButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return QAlert(
-                        message: 'Do you want to Quit the game?',
-                        onPressed: () {
-                          controller.logout().then((e) {
+                if (fault) {
+                  controller.setScore(sum);
+                  if (sum > 0) {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Result(score: sum),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MyHomePage(),
+                      ),
+                    );
+                  }
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return QAlert(
+                          message: 'Do you want to Quit the game?',
+                          onPressed: () {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
@@ -117,9 +122,9 @@ class _QuizState extends State<Quiz> {
                               ),
                             );
                           });
-                        });
-                  },
-                );
+                    },
+                  );
+                }
               },
               icon: const Icon(
                 Icons.close,
@@ -153,6 +158,27 @@ class _QuizState extends State<Quiz> {
                               style: TextStyle(fontSize: 24),
                             ),
                           ),
+                          Container(
+                            width: double.maxFinite,
+                            height: 60,
+                            padding: const EdgeInsets.only(
+                                left: 12.0, right: 12.0, top: 8),
+                            margin: const EdgeInsets.only(top: 18),
+                            child: FadeInUpBig(
+                              child: QButton(
+                                onPressed: () {
+                                  setState(() {
+                                    index = 0;
+                                    sum = 0;
+                                    fault = false;
+                                    skipped = false;
+                                  });
+                                },
+                                text: "Try Again",
+                                enabled: true,
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -262,6 +288,7 @@ class _QuizState extends State<Quiz> {
                                       _checkAnswer("a");
                                     },
                                     text: quizzes[index].a,
+                                    enabled: true,
                                   ),
                                 ),
                               ),
@@ -278,6 +305,7 @@ class _QuizState extends State<Quiz> {
                                       _checkAnswer("b");
                                     },
                                     text: quizzes[index].b,
+                                    enabled: true,
                                   ),
                                 ),
                               ),
@@ -302,6 +330,7 @@ class _QuizState extends State<Quiz> {
                                       _checkAnswer("c");
                                     },
                                     text: quizzes[index].c,
+                                    enabled: true,
                                   ),
                                 ),
                               ),
@@ -318,6 +347,7 @@ class _QuizState extends State<Quiz> {
                                       _checkAnswer("d");
                                     },
                                     text: quizzes[index].d,
+                                    enabled: true,
                                   ),
                                 ),
                               ),
@@ -325,30 +355,36 @@ class _QuizState extends State<Quiz> {
                           ],
                         ),
                       ),
-                      Container(
-                        width: double.maxFinite,
-                        height: 60,
-                        padding: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, top: 8),
-                        margin: const EdgeInsets.only(top: 18),
-                        child: FadeInUpBig(
-                          child: QButton(
-                            onPressed: () {
-                              setState(() {
-                                if (index < quizzes.length - 1) {
-                                  index++;
-                                } else {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => Result(score: sum),
-                                    ),
-                                  );
-                                  controller.setScore(sum);
-                                }
-                              });
-                            },
-                            text: "Skip 🔥",
+                      Visibility(
+                        visible: !skipped,
+                        child: Container(
+                          width: double.maxFinite,
+                          height: 60,
+                          padding: const EdgeInsets.only(
+                              left: 12.0, right: 12.0, top: 8),
+                          margin: const EdgeInsets.only(top: 18),
+                          child: FadeInUpBig(
+                            child: QButton(
+                              onPressed: () {
+                                setState(() {
+                                  skipped = true;
+                                  if (index < quizzes.length - 1) {
+                                    index++;
+                                  } else {
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            Result(score: sum),
+                                      ),
+                                    );
+                                    controller.setScore(sum);
+                                  }
+                                });
+                              },
+                              text: "Skip 🔥",
+                              enabled: true,
+                            ),
                           ),
                         ),
                       )

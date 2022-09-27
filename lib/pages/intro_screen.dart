@@ -59,40 +59,6 @@ class IntroScreenState extends State<IntroScreen> {
     );
   }
 
-  List<Widget> generateListCustomTabs() {
-    return List.generate(
-      3,
-      (index) => SizedBox(
-        width: double.infinity,
-        height: double.infinity,
-        child: ListView(
-          children: <Widget>[
-            const SizedBox(height: 20),
-            Image.network(
-              "https://picsum.photos/${300 + index}",
-              width: 300.0,
-              height: 300.0,
-            ),
-            const SizedBox(height: 20),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-              child: Text(
-                "Title at index $index",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: secondColor,
-                  fontSize: 30.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'RobotoMono',
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return IntroSlider(
@@ -126,7 +92,7 @@ class IntroScreenState extends State<IntroScreen> {
                     margin: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 16),
                     child: Text(
-                      "QuizU ⏳",
+                      "QuizU\n⏳",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: secondColor,
@@ -140,7 +106,7 @@ class IntroScreenState extends State<IntroScreen> {
                     margin: const EdgeInsets.symmetric(
                         vertical: 20, horizontal: 16),
                     child: Text(
-                      "A Flutter mobile app where users answer the maximum number of questions within 2 minutes",
+                      "A Flutter mobile app where users answer the maximum number of questions within 2 minutes 🕐",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: secondColor,

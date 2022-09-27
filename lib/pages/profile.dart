@@ -122,7 +122,7 @@ class _ProfileState extends State<Profile> {
                         ),
                         width: 100,
                         height: 100,
-                        child: randomAvatar(info["name"] ?? '',
+                        child: randomAvatar(info["name"] ?? 'AAA',
                             fit: BoxFit.contain),
                       ),
                     ),
@@ -147,7 +147,7 @@ class _ProfileState extends State<Profile> {
                         padding: const EdgeInsets.only(
                             right: 28.0, left: 28.0, top: 8.0, bottom: 8.0),
                         child: Text(
-                          info["mobile"],
+                          info["mobile"] ?? '',
                           style: const TextStyle(
                               fontSize: 22, color: Colors.white),
                         ),

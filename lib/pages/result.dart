@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quizu/pages/components/button.dart';
 import 'package:quizu/pages/components/result.dart';
 import 'package:share_plus/share_plus.dart';
@@ -125,36 +126,51 @@ class _ResultState extends State<Result> {
                 ),
                 width: double.maxFinite,
                 height: MediaQuery.of(context).size.height / 2,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                child: Stack(
+                  alignment: Alignment.center,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 18, bottom: 8.0),
-                      child: Text(
-                        "Congratulations",
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
+                    Positioned(
+                      top: 0,
+                      right: 0,
+                      left: 0,
+                      child: Lottie.network(
+                          'https://assets3.lottiefiles.com/packages/lf20_8edlac32.json'),
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        """You have completed ${widget.score.toString()} correct\nanswers!""",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 18),
-                      ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 18, bottom: 8.0),
+                          child: Text(
+                            "Congratulations",
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text(
+                            """You have completed ${widget.score.toString()} correct\nanswers!""",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 18),
+                          ),
+                        ),
+                        Container(
+                          width: 200,
+                          padding: const EdgeInsets.only(top: 18),
+                          child: QButton(
+                            onPressed: () {
+                              Share.share(
+                                  'I answered ${widget.score} correct answers in QuizU!');
+                            },
+                            text: "Share 🚀",
+                            enabled: true,
+                          ),
+                        )
+                      ],
                     ),
-                    Container(
-                      width: 200,
-                      padding: const EdgeInsets.only(top: 18),
-                      child: QButton(
-                        onPressed: () {
-                          Share.share(
-                              'I answered ${widget.score} correct answers in QuizU!');
-                        },
-                        text: "Share 🔥",
-                      ),
-                    )
                   ],
                 ),
               ),

@@ -16,7 +16,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: const Color(0xff46BDFA),
         secondaryHeaderColor: const Color(0xff77E2FE),
-        fontFamily: GoogleFonts.bungee().fontFamily,
+        fontFamily:
+            GoogleFonts.quicksand(fontWeight: FontWeight.w800).fontFamily,
       ),
       debugShowCheckedModeBanner: false,
       home: const Splash(),

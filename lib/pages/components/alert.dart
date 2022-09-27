@@ -16,14 +16,20 @@ class QAlert extends StatelessWidget {
       ),
       actions: [
         QButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            text: 'No'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          text: 'No',
+          enabled: true,
+        ),
         const SizedBox(
           height: 8,
         ),
-        QButton(onPressed: onPressed, text: 'Yes')
+        QButton(
+          onPressed: onPressed,
+          text: 'Yes',
+          enabled: true,
+        )
       ],
     );
   }

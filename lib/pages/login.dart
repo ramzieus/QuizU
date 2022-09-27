@@ -61,41 +61,62 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             color: Theme.of(context).primaryColor,
           ),
           const Plasma(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(20),
-                  ),
-                  color: Colors.white,
+          Positioned(
+            top: 100,
+            left: MediaQuery.of(context).size.width / 12,
+            right: MediaQuery.of(context).size.width / 12,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(
+                  Radius.circular(20),
                 ),
-                child: Text(
-                  title,
-                  style: const TextStyle(fontSize: 64),
+                color: Colors.white,
+              ),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 64),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            top: MediaQuery.of(context).size.height / 3,
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
                 ),
               ),
-              const SizedBox(
-                height: 60,
-              ),
-              newUser
+              child: newUser
                   ? Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const Text("What's your name?"),
-                        const SizedBox(
-                          height: 60,
-                        ),
                         Container(
                           padding: const EdgeInsets.all(8.0),
                           margin: const EdgeInsets.all(8.0),
                           decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              color: Colors.white),
+                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5,
+                                spreadRadius: -2,
+                                offset: const Offset(0, 0),
+                                color: Colors.black12.withOpacity(0.15),
+                              )
+                            ],
+                          ),
                           child: TextField(
+                            autofocus: true,
                             decoration: const InputDecoration(
-                              hintText: "Name",
+                              hintText: "Type your Name",
+                              hintStyle: TextStyle(color: Colors.black12),
                               focusedBorder: OutlineInputBorder(
                                 borderSide:
                                     BorderSide(color: Colors.transparent),
@@ -107,12 +128,11 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             ),
                             textAlign: TextAlign.center,
                             onChanged: (val) {
-                              name = val;
+                              setState(() {
+                                name = val;
+                              });
                             },
                           ),
-                        ),
-                        const SizedBox(
-                          height: 60,
                         ),
                         Container(
                           padding: const EdgeInsets.all(8),
@@ -121,28 +141,43 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                               borderRadius: BorderRadius.circular(8.0),
                               color: Colors.white),
                           child: QButton(
-                              onPressed: () {
-                                controller.setName(name: name);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const MyHomePage(),
-                                  ),
-                                );
-                              },
-                              text: "Done"),
+                            onPressed: name == ''
+                                ? null
+                                : () {
+                                    controller.setName(name: name);
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            const MyHomePage(),
+                                      ),
+                                    );
+                                  },
+                            text: "Done",
+                            enabled: name != '',
+                          ),
                         )
                       ],
                     )
                   : flip
                       ? Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Container(
-                              margin: const EdgeInsets.all(8.0),
+                              margin: const EdgeInsets.all(12.0),
                               padding: const EdgeInsets.all(18.0),
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.white),
+                                borderRadius: BorderRadius.circular(8.0),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5,
+                                    spreadRadius: -2,
+                                    offset: const Offset(0, 0),
+                                    color: Colors.black12.withOpacity(0.15),
+                                  )
+                                ],
+                              ),
                               child: InternationalPhoneNumberInput(
                                 onInputChanged: (PhoneNumber number) {
                                   this.number = number;
@@ -166,9 +201,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                     const TextInputType.numberWithOptions(
                                         signed: true, decimal: false),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 60,
                             ),
                             Container(
                               padding: const EdgeInsets.all(8),
@@ -196,13 +228,15 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                       });
                                     }
                                   },
-                                  text: "Send OTP confirmation",
+                                  text: "Send confirmation",
+                                  enabled: true,
                                 ),
                               ),
                             )
                           ],
                         )
                       : Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Center(
                               child: Container(
@@ -225,12 +259,14 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                       otp: pin,
                                       mobile: number.phoneNumber.toString(),
                                     );
-                                    setState(() {
-                                      newUser =
-                                          response["user_status"] == "new";
-                                    });
-                                    if (!newUser) {
-                                      _toHomePage();
+                                    if (response["success"]) {
+                                      setState(() {
+                                        newUser =
+                                            response["user_status"] == "new";
+                                      });
+                                      if (!newUser) {
+                                        _toHomePage();
+                                      }
                                     }
                                   },
                                 ),
@@ -251,12 +287,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                     flip = !flip;
                                   });
                                 },
-                                text: "Edit Number",
+                                text: "<< Back",
+                                enabled: true,
                               ),
                             ),
                           ],
-                        )
-            ],
+                        ),
+            ),
           )
         ],
       ),

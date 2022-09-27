@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:quizu/pages/quiz.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -55,32 +56,63 @@ class Home extends StatelessWidget {
                 topRight: Radius.circular(20),
               ),
             ),
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Center(
-                  child: Text(
-                    """Answer as much questions\ncorrectly within 2 minutes""",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.all(8.0),
-                  child: QButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Quiz(),
+                Column(
+                  children: [
+                    const Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(18.0),
+                        child: Text(
+                          "Ready?",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16),
                         ),
-                      );
-                    },
-                    text: "Quiz Me!",
-                  ),
+                      ),
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width / 2,
+                      padding: const EdgeInsets.all(8.0),
+                      child: Pulse(
+                        infinite: true,
+                        child: QButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Quiz(),
+                              ),
+                            );
+                          },
+                          text: "Quiz Me!",
+                          enabled: true,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    const Center(
+                      child: Text(
+                        """Answer as much questions\ncorrectly within""",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Center(
+                      child: Text(
+                        "2 minutes",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Theme.of(context).primaryColor),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

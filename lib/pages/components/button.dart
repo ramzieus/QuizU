@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 
 class QButton extends StatelessWidget {
-  const QButton({super.key, required this.text, required this.onPressed});
+  const QButton(
+      {super.key,
+      required this.text,
+      required this.onPressed,
+      required this.enabled});
 
   final String text;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
@@ -14,20 +19,13 @@ class QButton extends StatelessWidget {
         onTap: onPressed,
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                blurRadius: 25,
-                offset: const Offset(0, 5),
-                color: Theme.of(context).primaryColor.withOpacity(0.5),
-              )
-            ],
             borderRadius: const BorderRadius.all(Radius.circular(18)),
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Theme.of(context).secondaryHeaderColor,
-                Theme.of(context).primaryColor,
+                enabled ? Theme.of(context).secondaryHeaderColor : Colors.grey,
+                enabled ? Theme.of(context).primaryColor : Colors.grey,
               ],
             ),
           ),

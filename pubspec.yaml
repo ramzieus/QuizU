@@ -51,6 +51,7 @@ dependencies:
   diamond_bottom_bar: ^1.0.0
   simple_animations: ^3.0.0-nullsafety.2
   google_fonts: ^3.0.1
+  lottie: ^1.4.3
 
 dev_dependencies:
   flutter_test:
