@@ -1,7 +1,6 @@
-// import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
+import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/login.dart';
 
 class IntroScreen extends StatefulWidget {
@@ -14,8 +13,8 @@ class IntroScreen extends StatefulWidget {
 class IntroScreenState extends State<IntroScreen> {
   late Function goToTab;
 
-  Color primaryColor = const Color(0xffffcc5c);
-  Color secondColor = const Color(0xff3da4ab);
+  Color primaryColor = Colors.white;
+  Color secondColor = Colors.white;
 
   void onDonePress() {
     Navigator.pushReplacement(
@@ -34,7 +33,6 @@ class IntroScreenState extends State<IntroScreen> {
     return Icon(
       Icons.navigate_next,
       color: primaryColor,
-      size: 35.0,
     );
   }
 
@@ -56,8 +54,8 @@ class IntroScreenState extends State<IntroScreen> {
     return ButtonStyle(
       shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
       backgroundColor:
-          MaterialStateProperty.all<Color>(const Color(0x33ffcc5c)),
-      overlayColor: MaterialStateProperty.all<Color>(const Color(0x33ffcc5c)),
+          MaterialStateProperty.all<Color>(Colors.white.withOpacity(0.5)),
+      overlayColor: MaterialStateProperty.all<Color>(Colors.white),
     );
   }
 
@@ -99,100 +97,105 @@ class IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return IntroSlider(
       key: UniqueKey(),
-      // Skip button
       renderSkipBtn: renderSkipBtn(),
       skipButtonStyle: myButtonStyle(),
-
-      // Next button
       renderNextBtn: renderNextBtn(),
       nextButtonStyle: myButtonStyle(),
-
-      // Done button
       renderDoneBtn: renderDoneBtn(),
       onDonePress: onDonePress,
       doneButtonStyle: myButtonStyle(),
-
-      // Indicator
       indicatorConfig: const IndicatorConfig(
-        colorIndicator: Color(0xffffcc5c),
+        colorIndicator: Colors.white,
         sizeIndicator: 13.0,
         typeIndicatorAnimation: TypeIndicatorAnimation.sizeTransition,
       ),
-
-      // Custom tabs
       listCustomTabs: [
-        SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                child: Text(
-                  "QuizU ⏳",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: secondColor,
-                    fontSize: 60.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RobotoMono',
+        Stack(
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+            ),
+            const Plasma(),
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 16),
+                    child: Text(
+                      "QuizU ⏳",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: secondColor,
+                        fontSize: 60.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono',
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                child: Text(
-                  "A Flutter mobile app where users answer the maximum number of questions within 2 minutes",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: secondColor,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RobotoMono',
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 16),
+                    child: Text(
+                      "A Flutter mobile app where users answer the maximum number of questions within 2 minutes",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: secondColor,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono',
+                      ),
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-        SizedBox(
-          width: double.infinity,
-          height: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              Image.network(
-                "https://www.okoul.com/img/OkoulLogo-TransparentBG.png",
-                width: 300.0,
-                height: 300.0,
-              ),
-              Container(
-                margin:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
-                child: Text(
-                  "Development and design challenges that get you hired 🚀",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: secondColor,
-                    fontSize: 30.0,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'RobotoMono',
+        Stack(
+          children: [
+            Container(
+              color: Theme.of(context).primaryColor,
+            ),
+            const Plasma(),
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Image.network(
+                    "https://www.okoul.com/img/OkoulLogo-TransparentBG.png",
+                    width: 300.0,
+                    height: 300.0,
                   ),
-                ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 20, horizontal: 16),
+                    child: Text(
+                      "Development and design challenges that get you hired 🚀",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: secondColor,
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'RobotoMono',
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
       backgroundColorAllTabs: Colors.white,
       refFuncGoToTab: (refFunc) {
         goToTab = refFunc;
       },
-
-      // Behavior
       scrollPhysics: const BouncingScrollPhysics(),
       hideStatusBar: true,
       onTabChangeCompleted: onTabChangeCompleted,

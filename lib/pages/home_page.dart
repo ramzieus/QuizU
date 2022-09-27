@@ -1,8 +1,8 @@
+import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:quizu/controllers/app_controller.dart';
 import 'package:quizu/pages/home.dart';
 import 'package:quizu/pages/leaderboard.dart';
-import 'package:quizu/pages/login.dart';
 import 'package:quizu/pages/profile.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -35,43 +35,15 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('QuizU ⏳'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {
-              controller.logout().then((e) {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const Login(),
-                  ),
-                );
-              });
-            },
-            icon: const Icon(Icons.logout),
-          ),
-        ],
-      ),
       body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.leaderboard),
-            label: 'Leaderboard',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
+      bottomNavigationBar: DiamondBottomNavigation(
+        itemIcons: const [
+          Icons.home,
+          Icons.person,
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
+        centerIcon: Icons.leaderboard,
+        selectedIndex: _selectedIndex,
+        onItemPressed: _onItemTapped,
       ),
     );
   }

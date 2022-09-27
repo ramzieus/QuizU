@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:quizu/pages/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quizu/pages/splash_screen.dart';
 
 void main() {
@@ -14,6 +14,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        primaryColor: const Color(0xff46BDFA),
+        secondaryHeaderColor: const Color(0xff77E2FE),
+        fontFamily: GoogleFonts.bungee().fontFamily,
       ),
       debugShowCheckedModeBanner: false,
       home: const Splash(),
