@@ -1,4 +1,3 @@
-import 'package:diamond_bottom_bar/diamond_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:quizu/pages/quiz.dart';
 import 'package:simple_animations/simple_animations.dart';
@@ -69,7 +68,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  width: SizeConfig.screenWidth,
+                  width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(8.0),
                   child: QButton(
                     onPressed: () {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:quizu/controllers/app_controller.dart';
 import 'package:quizu/db/database.dart';
 import 'package:quizu/models/score.dart';
+import 'package:quizu/pages/components/alert.dart';
 import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/login.dart';
 import 'package:random_avatar/random_avatar.dart';
@@ -76,14 +77,24 @@ class _ProfileState extends State<Profile> {
                             ),
                             child: IconButton(
                               onPressed: () {
-                                controller.logout().then((e) {
-                                  Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const Login(),
-                                    ),
-                                  );
-                                });
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return QAlert(
+                                        message: 'Do you want to logout?',
+                                        onPressed: () {
+                                          controller.logout().then((e) {
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const Login(),
+                                              ),
+                                            );
+                                          });
+                                        });
+                                  },
+                                );
                               },
                               icon: const Icon(
                                 Icons.logout,
