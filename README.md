@@ -1,9 +1,46 @@
 # QuizU
 
 ## Packages Used
-- [phone_number](https://pub.dev/packages/phone_number)
+- [intl_phone_number_input](https://pub.dev/packages/intl_phone_number_input)
 - [dio](https://pub.dev/packages/dio)
-- [sqflite](https://pub.dev/packages/sqflite)
+- [pinput](https://pub.dev/packages/pinput)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [animate_do](https://pub.dev/packages/animate_do)
+- [circular_countdown_timer](https://pub.dev/packages/circular_countdown_timer)
+- [share_plus](https://pub.dev/packages/share_plus)
+- [path_provider](https://pub.dev/packages/path_provider)
+- [random_avatar](https://pub.dev/packages/random_avatar)
+- [intro_slider](https://pub.dev/packages/intro_slider)
+- [diamond_bottom_bar](https://pub.dev/packages/diamond_bottom_bar)
+- [simple_animations](https://pub.dev/packages/simple_animations)
+- [google_fonts](https://pub.dev/packages/google_fonts)
+- [lottie](https://pub.dev/packages/lottie)
+- [path](https://pub.dev/packages/path)
+- [flutter_svg](https://pub.dev/packages/flutter_svg)
+
+## UI inspiration
+[Cizo - Quiz App UI KIt](https://dribbble.com/shots/15173744-Cizo-Quiz-App-UI-KIt)
+
+fonts :
+- Google Fonts
+- imoji
+
+Animation:
+- Lottie [Thanos Koutsoupas](https://lottiefiles.com/112854-congratulations)
+
+## 
+## Screenshots
+
+| Intro | Login | OTP |
+| :---:         |     :---:      |          :---: |
+| ![Intro Screen](readme_images/1.png "Intro Screen")   | ![Login](readme_images/2.png "Login")     | ![OTP](readme_images/3.png "OTP")    |
+| Name     | Home       | Quiz      |
+|![Name](readme_images/4.png "Name")|![Home](readme_images/5.png "Home")| ![Quiz](readme_images/6.png "Quiz")|
+|Wrong|Congratulations|Leaderboard|
+|![wrong](readme_images/7.png "wrong")|![OTP](readme_images/8.png "OTP")|![OTP](readme_images/9.png "OTP")|
+|Profile|
+|![OTP](readme_images/10.png "OTP")|
+
 ## Technical Requirements
 NOTE: Here is the API documentation
 

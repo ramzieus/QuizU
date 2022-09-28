@@ -1,4 +1,4 @@
-package com.example.quizu
+package com.ramzieus.quizu
 
 import io.flutter.embedding.android.FlutterActivity
 
