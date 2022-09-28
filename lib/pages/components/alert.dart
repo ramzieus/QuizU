@@ -11,7 +11,7 @@ class QAlert extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Text(
-        message ?? '',
+        message,
         textAlign: TextAlign.center,
       ),
       actions: [

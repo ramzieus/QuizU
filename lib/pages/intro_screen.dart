@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/login.dart';
+import 'package:quizu/pages/utils/constants.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({Key? key}) : super(key: key);
@@ -13,40 +14,30 @@ class IntroScreen extends StatefulWidget {
 class IntroScreenState extends State<IntroScreen> {
   late Function goToTab;
 
-  Color primaryColor = Colors.white;
-  Color secondColor = Colors.white;
+  Color white = Colors.white;
 
   void onDonePress() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const Login(),
-      ),
-    );
-  }
-
-  void onTabChangeCompleted(index) {
-    // log("onTabChangeCompleted, index: $index");
+    pushReplacement(context, const Login());
   }
 
   Widget renderNextBtn() {
     return Icon(
       Icons.navigate_next,
-      color: primaryColor,
+      color: white,
     );
   }
 
   Widget renderDoneBtn() {
     return Icon(
       Icons.done,
-      color: primaryColor,
+      color: white,
     );
   }
 
   Widget renderSkipBtn() {
     return Icon(
       Icons.skip_next,
-      color: primaryColor,
+      color: white,
     );
   }
 
@@ -95,7 +86,7 @@ class IntroScreenState extends State<IntroScreen> {
                       "QuizU\n⏳",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: secondColor,
+                        color: white,
                         fontSize: 60.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'RobotoMono',
@@ -109,7 +100,7 @@ class IntroScreenState extends State<IntroScreen> {
                       "A Flutter mobile app where users answer the maximum number of questions within 2 minutes 🕐",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: secondColor,
+                        color: white,
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'RobotoMono',
@@ -145,7 +136,7 @@ class IntroScreenState extends State<IntroScreen> {
                       "Development and design challenges that get you hired 🚀",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: secondColor,
+                        color: white,
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
                         fontFamily: 'RobotoMono',
@@ -163,8 +154,7 @@ class IntroScreenState extends State<IntroScreen> {
         goToTab = refFunc;
       },
       scrollPhysics: const BouncingScrollPhysics(),
-      hideStatusBar: true,
-      onTabChangeCompleted: onTabChangeCompleted,
+      hideStatusBar: false,
     );
   }
 }

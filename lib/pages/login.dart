@@ -6,6 +6,7 @@ import 'package:quizu/controllers/app_controller.dart';
 import 'package:quizu/pages/components/button.dart';
 import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/home_page.dart';
+import 'package:quizu/pages/utils/constants.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -20,30 +21,14 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
   final phoneController = TextEditingController();
   final pinController = TextEditingController();
   final focusNode = FocusNode();
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(19),
-      border: Border.all(color: Colors.black12),
-    ),
-  );
-
   PhoneNumber number = PhoneNumber(isoCode: 'SA');
   bool flip = true;
   bool validPhone = false;
   bool newUser = false;
-  String title = 'QuizU ⏳';
   String name = "";
-  bool animateButton = false;
 
   _toHomePage() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MyHomePage(),
-      ),
-    );
+    pushReplacement(context, const MyHomePage());
   }
 
   @override
@@ -73,10 +58,10 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                 ),
                 color: Colors.white,
               ),
-              child: Text(
-                title,
+              child: const Text(
+                'QuizU ⏳',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 64),
+                style: TextStyle(fontSize: 64),
               ),
             ),
           ),
@@ -86,13 +71,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
             right: 0,
             top: MediaQuery.of(context).size.height / 3,
             child: Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(20),
-                  topRight: Radius.circular(20),
-                ),
-              ),
+              decoration: decoration,
               child: newUser
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -137,21 +116,13 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                         Container(
                           padding: const EdgeInsets.all(8),
                           margin: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8.0),
-                              color: Colors.white),
                           child: QButton(
                             onPressed: name == ''
                                 ? null
                                 : () {
                                     controller.setName(name: name);
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const MyHomePage(),
-                                      ),
-                                    );
+                                    pushReplacement(
+                                        context, const MyHomePage());
                                   },
                             text: "Done",
                             enabled: name != '',
@@ -205,9 +176,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             Container(
                               padding: const EdgeInsets.all(8),
                               margin: const EdgeInsets.all(8),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.white),
                               child: Flash(
                                 controller: (controller) =>
                                     animationController = controller,
@@ -241,12 +209,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                             Center(
                               child: Container(
                                 padding: const EdgeInsets.all(12),
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(20),
-                                  ),
-                                  color: Colors.white,
-                                ),
                                 child: Pinput(
                                   controller: pinController,
                                   validator: (value) {
@@ -271,9 +233,6 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                   },
                                 ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 60,
                             ),
                             Container(
                               padding: const EdgeInsets.all(8),

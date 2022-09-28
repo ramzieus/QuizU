@@ -7,6 +7,7 @@ import 'package:quizu/pages/components/alert.dart';
 import 'package:quizu/pages/components/button.dart';
 import 'package:quizu/pages/home_page.dart';
 import 'package:quizu/pages/result.dart';
+import 'package:quizu/pages/utils/constants.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -42,12 +43,7 @@ class _QuizState extends State<Quiz> {
           index++;
         } else {
           controller.setScore(sum);
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => Result(score: sum),
-            ),
-          );
+          pushReplacement(context, Result(score: sum));
         }
       });
     } else {
@@ -73,11 +69,9 @@ class _QuizState extends State<Quiz> {
             return QAlert(
                 message: 'Do you want to Quit the game?',
                 onPressed: () {
-                  Navigator.pushReplacement(
+                  pushReplacement(
                     context,
-                    MaterialPageRoute(
-                      builder: (context) => const MyHomePage(),
-                    ),
+                    const MyHomePage(),
                   );
                 });
           },
@@ -94,19 +88,9 @@ class _QuizState extends State<Quiz> {
                 if (fault) {
                   controller.setScore(sum);
                   if (sum > 0) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Result(score: sum),
-                      ),
-                    );
+                    pushReplacement(context, Result(score: sum));
                   } else {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyHomePage(),
-                      ),
-                    );
+                    pushReplacement(context, const MyHomePage());
                   }
                 } else {
                   showDialog(
@@ -115,12 +99,7 @@ class _QuizState extends State<Quiz> {
                       return QAlert(
                           message: 'Do you want to Quit the game?',
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const MyHomePage(),
-                              ),
-                            );
+                            pushReplacement(context, const MyHomePage());
                           });
                     },
                   );
@@ -227,12 +206,7 @@ class _QuizState extends State<Quiz> {
                               autoStart: true,
                               onComplete: () {
                                 controller.setScore(sum);
-                                Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => Result(score: sum),
-                                  ),
-                                );
+                                pushReplacement(context, Result(score: sum));
                               }),
                         ),
                       ),
@@ -371,13 +345,8 @@ class _QuizState extends State<Quiz> {
                                   if (index < quizzes.length - 1) {
                                     index++;
                                   } else {
-                                    Navigator.pushReplacement(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            Result(score: sum),
-                                      ),
-                                    );
+                                    pushReplacement(
+                                        context, Result(score: sum));
                                     controller.setScore(sum);
                                   }
                                 });

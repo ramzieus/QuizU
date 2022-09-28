@@ -1,7 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/quiz.dart';
-import 'package:simple_animations/simple_animations.dart';
+import 'package:quizu/pages/utils/constants.dart';
 
 import 'components/button.dart';
 
@@ -28,34 +29,14 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        PlasmaRenderer(
-          type: PlasmaType.bubbles,
-          particles: 100,
-          color: Theme.of(context).secondaryHeaderColor,
-          blur: 0.40,
-          size: 0.50,
-          speed: 2,
-          offset: 0,
-          blendMode: BlendMode.lighten,
-          particleType: ParticleType.circle,
-          variation1: 0,
-          variation2: 0,
-          variation3: 0,
-          rotation: 0,
-        ),
+        const Plasma(),
         Positioned(
           bottom: 0,
           right: 0,
           top: MediaQuery.of(context).size.height / 3,
           left: 0,
           child: Container(
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
+            decoration: decoration,
             padding: const EdgeInsets.only(top: 10),
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -80,12 +61,7 @@ class Home extends StatelessWidget {
                         infinite: true,
                         child: QButton(
                           onPressed: () {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const Quiz(),
-                              ),
-                            );
+                            pushReplacement(context, const Quiz());
                           },
                           text: "Quiz Me!",
                           enabled: true,
@@ -98,7 +74,7 @@ class Home extends StatelessWidget {
                   children: [
                     const Center(
                       child: Text(
-                        """Answer as much questions\ncorrectly within""",
+                        "Answer as much questions\ncorrectly within",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16),
                       ),

@@ -4,6 +4,7 @@ import 'package:quizu/controllers/app_controller.dart';
 import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/home_page.dart';
 import 'package:quizu/pages/intro_screen.dart';
+import 'package:quizu/pages/utils/constants.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
@@ -25,21 +26,11 @@ class _SplashState extends State<Splash> {
   }
 
   _completeLogin() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const IntroScreen(),
-      ),
-    );
+    pushReplacement(context, const IntroScreen());
   }
 
   _toHome() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const MyHomePage(),
-      ),
-    );
+    pushReplacement(context, const MyHomePage());
   }
 
   @override

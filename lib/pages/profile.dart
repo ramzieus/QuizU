@@ -5,7 +5,9 @@ import 'package:quizu/db/database.dart';
 import 'package:quizu/models/score.dart';
 import 'package:quizu/pages/components/alert.dart';
 import 'package:quizu/pages/components/plasma.dart';
+import 'package:quizu/pages/components/score_item.dart';
 import 'package:quizu/pages/login.dart';
+import 'package:quizu/pages/utils/constants.dart';
 import 'package:random_avatar/random_avatar.dart';
 
 class Profile extends StatefulWidget {
@@ -84,13 +86,8 @@ class _ProfileState extends State<Profile> {
                                         message: 'Do you want to logout?',
                                         onPressed: () {
                                           controller.logout().then((e) {
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    const Login(),
-                                              ),
-                                            );
+                                            pushReplacement(
+                                                context, const Login());
                                           });
                                         });
                                   },
@@ -140,8 +137,9 @@ class _ProfileState extends State<Profile> {
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(80)),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(80),
+                          ),
                           color: Colors.white.withOpacity(0.2),
                         ),
                         padding: const EdgeInsets.only(
@@ -166,72 +164,10 @@ class _ProfileState extends State<Profile> {
                         child: ListView.builder(
                             itemCount: scores.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                padding: const EdgeInsets.all(8),
-                                margin: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 5,
-                                      spreadRadius: -8,
-                                      offset: const Offset(0, 8),
-                                      color: Colors.black12.withOpacity(0.15),
-                                    )
-                                  ],
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                          left: 8, right: 8, top: 4, bottom: 4),
-                                      decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.all(
-                                          Radius.circular(80),
-                                        ),
-                                        color: Theme.of(context)
-                                            .secondaryHeaderColor
-                                            .withOpacity(0.2),
-                                      ),
-                                      child: Text(
-                                        "${index + 1}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18,
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 4,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Text(
-                                          scores[index].date.split('.')[0],
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                              color: Colors.black87),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Text(
-                                        scores[index].score,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                          color:
-                                              Color.fromRGBO(252, 171, 33, 0.6),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
+                              return ScoreItem(
+                                  index: index,
+                                  date: scores[index].date.split('.')[0],
+                                  score: scores[index].score);
                             }),
                       ),
                     )

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quizu/pages/components/button.dart';
+import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/components/result.dart';
+import 'package:quizu/pages/utils/constants.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:simple_animations/simple_animations.dart';
 
 import 'home_page.dart';
 
 class Result extends StatefulWidget {
   const Result({super.key, required this.score});
+
   final int score;
 
   @override
@@ -31,21 +33,7 @@ class _ResultState extends State<Result> {
           Container(
             color: Theme.of(context).primaryColor,
           ),
-          PlasmaRenderer(
-            type: PlasmaType.bubbles,
-            particles: 100,
-            color: Theme.of(context).secondaryHeaderColor,
-            blur: 0.40,
-            size: 0.50,
-            speed: 2,
-            offset: 0,
-            blendMode: BlendMode.lighten,
-            particleType: ParticleType.circle,
-            variation1: 0,
-            variation2: 0,
-            variation3: 0,
-            rotation: 0,
-          ),
+          const Plasma(),
           Positioned(
             left: 0,
             right: 0,
@@ -65,12 +53,7 @@ class _ResultState extends State<Result> {
                       ),
                       child: IconButton(
                         onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MyHomePage(),
-                            ),
-                          );
+                          pushReplacement(context, const MyHomePage());
                         },
                         icon: const Icon(
                           Icons.close,
@@ -86,10 +69,11 @@ class _ResultState extends State<Result> {
                     width: 100,
                     height: 100,
                     child: Center(
-                        child: Text(
-                      '🏁',
-                      style: TextStyle(fontSize: 42),
-                    )),
+                      child: Text(
+                        '🏁',
+                        style: TextStyle(fontSize: 42),
+                      ),
+                    ),
                   ),
                 ),
                 Padding(
@@ -103,7 +87,8 @@ class _ResultState extends State<Result> {
                         right: 18.0, left: 18.0, top: 4.0, bottom: 4.0),
                     child: Text(
                       "⭐ ${widget.score.toString()}",
-                      style: TextStyle(fontSize: 22, color: Colors.black87),
+                      style:
+                          const TextStyle(fontSize: 22, color: Colors.black87),
                     ),
                   ),
                 ),
@@ -115,64 +100,56 @@ class _ResultState extends State<Result> {
             left: 0,
             right: 0,
             top: MediaQuery.of(context).size.height / 3,
-            child: SizedBox(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+            child: Container(
+              decoration: decoration,
+              width: double.maxFinite,
+              height: MediaQuery.of(context).size.height / 2,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    left: 0,
+                    child: Lottie.network(
+                        'https://assets3.lottiefiles.com/packages/lf20_8edlac32.json'),
                   ),
-                ),
-                width: double.maxFinite,
-                height: MediaQuery.of(context).size.height / 2,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Positioned(
-                      top: 0,
-                      right: 0,
-                      left: 0,
-                      child: Lottie.network(
-                          'https://assets3.lottiefiles.com/packages/lf20_8edlac32.json'),
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 18, bottom: 8.0),
-                          child: Text(
-                            "Congratulations",
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor),
-                          ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 18, bottom: 8.0),
+                        child: Text(
+                          "Congratulations",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).primaryColor),
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(8.0),
-                          child: Text(
-                            """You have completed ${widget.score.toString()} correct\nanswers!""",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 18),
-                          ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          """You have completed ${widget.score.toString()} correct\nanswers!""",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 18),
                         ),
-                        Container(
-                          width: 200,
-                          padding: const EdgeInsets.only(top: 18),
-                          child: QButton(
-                            onPressed: () {
-                              Share.share(
-                                  'I answered ${widget.score} correct answers in QuizU!');
-                            },
-                            text: "Share 🚀",
-                            enabled: true,
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                      Container(
+                        width: 200,
+                        padding: const EdgeInsets.only(top: 18),
+                        child: QButton(
+                          onPressed: () {
+                            Share.share(
+                                'I answered ${widget.score} correct answers in QuizU!');
+                          },
+                          text: "Share 🚀",
+                          enabled: true,
+                        ),
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
