@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:quizu/pages/components/plasma.dart';
 import 'package:quizu/pages/login.dart';
@@ -89,7 +90,6 @@ class IntroScreenState extends State<IntroScreen> {
                         color: white,
                         fontSize: 60.0,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'RobotoMono',
                       ),
                     ),
                   ),
@@ -103,7 +103,6 @@ class IntroScreenState extends State<IntroScreen> {
                         color: white,
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'RobotoMono',
                       ),
                     ),
                   ),
@@ -124,10 +123,10 @@ class IntroScreenState extends State<IntroScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  Image.network(
-                    "https://www.okoul.com/img/OkoulLogo-TransparentBG.png",
-                    width: 300.0,
-                    height: 300.0,
+                  SvgPicture.asset(
+                    "assets/images/OkoulLogo.svg",
+                    width: 200,
+                    color: Colors.white,
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(
@@ -139,7 +138,6 @@ class IntroScreenState extends State<IntroScreen> {
                         color: white,
                         fontSize: 30.0,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'RobotoMono',
                       ),
                     ),
                   ),

@@ -111,8 +111,8 @@ class _ResultState extends State<Result> {
                     top: 0,
                     right: 0,
                     left: 0,
-                    child: Lottie.network(
-                        'https://assets3.lottiefiles.com/packages/lf20_8edlac32.json'),
+                    child:
+                        Lottie.asset('assets/animations/congratulations.json'),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,

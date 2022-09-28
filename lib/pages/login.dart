@@ -150,6 +150,7 @@ class _LoginState extends State<Login> with TickerProviderStateMixin {
                                 ],
                               ),
                               child: InternationalPhoneNumberInput(
+                                autoFocus: true,
                                 onInputChanged: (PhoneNumber number) {
                                   this.number = number;
                                 },
